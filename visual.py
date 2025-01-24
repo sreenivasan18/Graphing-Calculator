@@ -32,7 +32,7 @@ st.title("Graphing Calculator")
 st.write("Visualize mathematical functions dynamically.")
 
 st.header("Enter Function Details")
-function_input = st.text_input("Enter a mathematical function (use 'x' as the variable, e.g., 'sin(x)', 'x**2 - 4'):", value="sin(x)")
+function_input = st.text_input("Enter a mathematical function (use 'x' as the variable, e.g., 'sin(x)', 'x**2 - 4 + exp(2)'):", value="sin(x)")
 x_min = st.number_input("X-axis Minimum", value=-10.0)
 x_max = st.number_input("X-axis Maximum", value=10.0)
 num_points = st.slider("Number of Points for Plotting", min_value=100, max_value=5000, value=500)
