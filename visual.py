@@ -1,6 +1,8 @@
 import streamlit as st
 import matplotlib.pyplot as plt
 import numpy as np
+from sympy import sympify
+import math
 
 st.markdown(
     """
@@ -35,10 +37,17 @@ x_min = st.number_input("X-axis Minimum", value=-10.0)
 x_max = st.number_input("X-axis Maximum", value=10.0)
 num_points = st.slider("Number of Points for Plotting", min_value=100, max_value=5000, value=500)
 
-if st.button("Plot Function"):
+try:
+    parsed_function = sympify(function_input)
+except Exception as e:
+    st.error(f"Error in parsing function: {e}")
+    parsed_function = None
+
+if st.button("Plot Function") and parsed_function:
     try:
+        f = np.vectorize(lambda x: float(parsed_function.subs("x", x)))
         x = np.linspace(x_min, x_max, num_points)
-        y = eval(function_input, {"x": x, "np": np, "sin": np.sin, "cos": np.cos, "tan": np.tan, "exp": np.exp, "log": np.log, "sqrt": np.sqrt})
+        y = f(x)
 
         fig, ax = plt.subplots()
         ax.plot(x, y, label=f"y = {function_input}", color="blue")
